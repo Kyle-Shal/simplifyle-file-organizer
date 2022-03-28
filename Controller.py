@@ -1,8 +1,8 @@
 import tkinter as tk
-from Models import FolderOperations as FO
+from Models.FolderOperations import FolderOperations
 
 # Create an instance of FolderOperations
-FOps = FO.FolderOperations
+FO = FolderOperations()
 
 # STARTUP VIEW
 root = tk.Tk()

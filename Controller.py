@@ -1,11 +1,10 @@
 import tkinter as tk
-#from Models import FolderOperations as FO
+
 from tkinter import filedialog
 import os
 import random
-from tracemalloc import start
-# Create an instance of FolderOperations
-# FOps = FO.FolderOperations
+
+
 
 
 #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

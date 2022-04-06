@@ -30,17 +30,6 @@ class FolderOperations():
                     else :
                             os.makedirs(moveInto)
                             os.rename(path+"/"+files,moveInto+"/"+files)
-            #for(path,dirs,files) in os.walk(path):
-            #     for file in files :
-            #         extension= file.split('.')[1]
-            #         moveInto = path+"/"+extension
-                
-            #         if os.path.exists(moveInto):
-            #             if file.endswith(extension):
-            #                 os.rename(path+"/"+file,moveInto+"/"+file)
-            #         else :
-            #             os.makedirs(moveInto)
-            #             os.rename(path+"/"+file,moveInto+"/"+file)
             for i in filelist:
                 i.destroy()
         except:

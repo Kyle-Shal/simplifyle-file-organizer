@@ -1,21 +1,25 @@
-import tkinter as tk
-from Models.FolderOperations import FolderOperations
-
-# Create an instance of FolderOperations
-FO = FolderOperations()
-
-# STARTUP VIEW
-root = tk.Tk()
-frame0 = tk.Frame(root,height=600,width=500,bg="#163dc9")
-frame0.pack()
-frame1 = tk.Frame(root,height=600,width=500,bg="#163dc9")
-frame1.place(relheight=1,relwidth=1)
- 
-  
-selectFolder = tk.Button(root,text="Select Folder",bg="#0095ff",relief=tk.GROOVE,width=20,command=FOps.chooseFolder)
-selectFolder.place(x= 180, y=400)
-selectOrganize = tk.Button(root,text="Organize",bg="#0095ff",relief=tk.GROOVE,width=20,command=FOps.organizeByExtension)
-selectOrganize.place(x= 180, y=420)
+import os
+from FolderOperationsModel import FolderOperations
 
 
-root.mainloop()
+class SimpliFyleController():
+    def __init__(self):
+        self.model = FolderOperations() #create an instance of the model
+        # self.folderName = self.StartupView.folder
+        # self.fileNames = [""]
+        
+
+    def chooseFolder(self):
+        print("choosing folder")
+        self.model.chooseFolder()
+        print(os.listdir(self.getFolderPath()))
+
+    def organizeByExtension(self):
+        self.model.organizeByExtension()
+
+    def getFolderPath(self):
+        return self.model.folderPath
+
+    def getFileNames(self):
+        return self.model.fileNames
+

@@ -19,6 +19,7 @@ class FolderOperations():
         
     def organizeByExtension(filelist):
         try:
+            
             path = folderName
             for files in os.listdir(path):
                 if(os.path.isdir(files) == False):
@@ -30,31 +31,109 @@ class FolderOperations():
                     else :
                             os.makedirs(moveInto)
                             os.rename(path+"/"+files,moveInto+"/"+files)
-            for i in filelist:
-                i.destroy()
         except:
             print("error")
+
+    def organizeByAcademic(courses,deliverables):
+        try:
+            path = folderName
+            
+            for subject in courses:
+                            for things in deliverables:
+                                for files in os.listdir(folderName):
+                                    if(os.path.isdir(files) == False):
+                                        if subject in files and things in files :
+                                            moveInto = path+"/"+subject+"/"+things
+                                            if (os.path.exists(moveInto)):
+                                                os.rename(path+"/"+files,moveInto+"/"+files)
+                                            else :
+                                                os.makedirs(moveInto)
+                                                os.rename(path+"/"+files,moveInto+"/"+files)
+        except:
+            print("error")
+
 
 FOps = FolderOperations
 
 
 # SECOND VIEW 
 class SecondView ():
+    subjects = []
+    courses = []
+    deliverables = []
+    assignments = []
+    def showAcademic(frame3,frame5):
+        frame3.tkraise()
+        frame5.tkraise()
+    def showExtension(frame2,frame4):
+        frame2.tkraise()
+        frame4.tkraise()
+    def coursess(canvas1,course):
+            string = course.get()
+            if string.strip():
+                SecondView.courses.append(string)
+            Coursess = list(dict.fromkeys(SecondView.courses))
+            SecondView.subjects = Coursess
+            i = 75
+            for names in Coursess:
+                label3 = tk.Label(canvas1,text=names,fg="#00F0FF",bg="#343030",font=("Helvetica",10))
+                label3.place(x= 0, y=i)
+                
+                # fileList.append(label3)
+                i = i + 20
+    def deliverabless(canvas1,deliverable):
+            string = deliverable.get()
+            if string.strip():
+                SecondView.deliverables.append(string)
+            i = 75
+            Deliverabless = list(dict.fromkeys(SecondView.deliverables))
+            SecondView.assignments = Deliverabless
+            for names in Deliverabless:
+                label3 = tk.Label(canvas1,text=names,fg="#00F0FF",bg="#343030",font=("Helvetica",10))
+                label3.place(x= 140, y=i)
+                
+                # fileList.append(label3)
+                i = i + 20
     def nextView(fileNames,folderName):
-        global root2
+        
         root2 = tk.Tk()
+
         frame2 = tk.Frame(root2,height=500,width=1000,bg="#343030")
         frame2.pack()
-        canvas1 = tk.Canvas(root2,height=500,width=1000,bg="#343030")
+        canvas1 = tk.Canvas(frame2,height=500,width=1000,bg="#343030")
         canvas1.create_line(700, 0, 700, 500,width=3,fill="#808080")
         canvas1.place(x=0,y=0)
+        frame4 = tk.Frame(root2,height=35,bg="#343030")
+        frame4.place(x= 200, y=245,width=180)
+        frame5 = tk.Frame(root2,height=35,bg="#343030")
+        frame5.place(x= 200, y=245,width=180)
+        frame3 = tk.Frame(root2,height=500,width=300,bg="#343030")
+        frame3.place(x = 701,y =1)
+        
         i = 10
         j = 0
         fileList = []
         arclist = []
         boxlist = []
+
+        #########################################################################################
+        # ACADEMIC VIEW
+        
+        
+        
+       
+        course = tk.Entry(frame3)
+        course.place(x = 0,y=10,width=130 )
+        deliverable = tk.Entry(frame3)
+        deliverable.place (x = 140,y = 10,width=130)
+        AddCourse = tk.Button(frame3,text="Add Course",bg="#00F0FF",relief=tk.GROOVE,command= lambda: SecondView.coursess(frame3,course))
+        AddCourse.focus_set()
+        AddCourse.place(x= 0, y=35,width=130)
+        AddDeliverables = tk.Button(frame3,text="Add Deliverables",bg="#00F0FF",relief=tk.GROOVE,command= lambda:SecondView.deliverabless(frame3,deliverable))
+        AddDeliverables.place(x= 140, y=35,width=130)
+
         for file in fileNames:
-            label1 = tk.Label(canvas1,text=file,fg="#00F0FF",bg="#343030",font=("Helvetica",10))
+            label1 = tk.Label(frame2,text=file,fg="#00F0FF",bg="#343030",font=("Helvetica",10))
             label1.place(x= 710, y=i)
             fileList.append(label1)
             i = i + 20
@@ -97,8 +176,14 @@ class SecondView ():
         arc2 = canvas1.create_oval(220, 70, 360, 210,fill="#343030")
         label = tk.Label(canvas1,text=totalFiles,fg="#00F0FF",bg="#343030",font=("Helvetica",15))
         label.place(x= 45, y=420)
-        selectOrganize = tk.Button(canvas1,text="Organize",bg="#00F0FF",relief=tk.GROOVE,command=lambda :FOps.organizeByExtension(fileList))
-        selectOrganize.place(x= 200, y=250,width=180)
+        selectOrganizeAcademic = tk.Button(frame5,text="Organize1",bg="#00F0FF",relief=tk.GROOVE,command=lambda :FOps.organizeByAcademic(SecondView.subjects,SecondView.assignments))
+        selectOrganizeAcademic.place(x= 0, y=0,width=180)
+        selectOrganizeExtension = tk.Button(frame4,text="Organize2",bg="#00F0FF",relief=tk.GROOVE,command=lambda :FOps.organizeByExtension(fileNames))
+        selectOrganizeExtension.place(x= 0, y=0,width=180)
+        selectAcademic = tk.Button(canvas1,text="Academic",bg="#00F0FF",relief=tk.GROOVE,command=lambda :SecondView.showAcademic(frame3,frame5))
+        selectAcademic.place(x= 200, y=15,width=90)
+        selectExtension = tk.Button(canvas1,text="Extension",bg="#00F0FF",relief=tk.GROOVE,command=lambda :SecondView.showExtension(frame2,frame4))
+        selectExtension.place(x= 295, y=15,width=90)
         root2.mainloop()
 
 #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

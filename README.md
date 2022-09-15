@@ -1,7 +1,20 @@
-# File Organizer
-## Authors and acknowledgment
+# SimpliFyle File Organizer
+
+What:
+
+- A file organizer desktop application created using python
+
+Why:
+
+- Created for the purposes of a Software Design Course Project
+
+Who:
+
 - Kyle Shal
 - Jerom Thomson
 
 ## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+
+WIP: Webify the python application using Thinfinity VirtualUI for easy viewing access
+
+The design architecture can be viewed within [SimpliFyle.pdf](./Simplifyle.pdf).
